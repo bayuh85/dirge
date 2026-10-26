@@ -6,6 +6,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.26.0] - 2026-10-26
+
 ### Added
 - Cheaper Inference as a built-in provider. Set `CHEAPER_INFERENCE_API_KEY` and
   select it with `--provider cheaperinference` (or a `providers.cheaperinference`
