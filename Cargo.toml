@@ -164,7 +164,7 @@ semantic-sql = ["semantic", "dep:tree-sitter-sequel"]
 semantic-dafny = ["semantic", "dep:tree-sitter-dafny"]
 semantic-swift = ["semantic", "dep:tree-sitter-swift"]
 semantic-mojo = ["semantic", "dep:tree-sitter-language", "dep:cc"]
-plugin = ["dep:janetrs"]
+plugin = ["dep:janetrs", "dep:evil-janet"]
 lsp = ["dep:lsp-types"]
 dap = ["dep:which", "dep:dap"]
 sandbox-microvm = ["dep:libkrun-sys", "dep:russh", "dep:hex"]
@@ -356,6 +356,7 @@ tree-sitter-c = { version = "0.24", optional = true }
 tree-sitter-cpp = { version = "0.23", optional = true }
 streaming-iterator = { version = "0.1", optional = true }
 janetrs = { version = "0.8", optional = true }
+evil-janet = { version = "=1.37.2", optional = true }
 html2text = "0.17"
 indexmap = "2"
 # Windows-safe canonicalize: returns non-verbatim paths (no `\\?\` prefix)
