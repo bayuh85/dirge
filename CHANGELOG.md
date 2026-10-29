@@ -6,6 +6,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.26.1] - 2026-10-29
+
 ### Fixed
 - The nREPL plugin no longer hangs the harness when an eval errors. A failed
   eval used to be treated as a dead socket: `nrepl-eval` reconnected and
@@ -19,7 +21,22 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   late reply would desync the next eval), and any other eval error just
   propagates with the connection intact. The clone handshake is bounded by
   `nrepl-connect-timeout` (10 s), so a server that accepts but never answers
-  fails fast instead of wedging.
+  fails fast instead of wedging. (#881)
+- Backspace and Ctrl+G now work in the three modal free-text fields — the
+  `question` tool's custom answer, the plan-approval feedback box, and the
+  permission deny-note. Each field hand-rolled its own key handler that only
+  knew `KeyCode::Backspace`, so a terminal whose backspace key sends the raw
+  BS byte (MobaXterm, screen, some serial consoles — reported as Ctrl+H by
+  crossterm) dropped the key entirely and a typo could not be corrected, and
+  the modals had no Ctrl+G arm, so the compose box's escape hatch into
+  `$EDITOR` did nothing. All three fields now share one key decider that
+  accepts both decodings of Backspace and maps Ctrl+G to the external editor,
+  suspending the TUI around it like the compose path. (#881)
+
+### Security
+- Bumped pulldown-cmark to 0.13.5 for RUSTSEC-2026-0414, exponential event
+  growth with `ENABLE_WIKILINKS` on crafted input. Semver-compatible bump;
+  the audit gate was red on main until it landed. (#881)
 
 ## [0.26.0] - 2026-10-26
 
@@ -4555,7 +4572,10 @@ agent in Rust with:
   LSP integration, and a Janet plugin system.
 - Session save/load/resume with LLM-summarization compaction.
 
-[Unreleased]: https://github.com/dirge-code/dirge/compare/v0.25.6...HEAD
+[Unreleased]: https://github.com/dirge-code/dirge/compare/v0.26.1...HEAD
+[0.26.1]: https://github.com/dirge-code/dirge/compare/v0.26.0...v0.26.1
+[0.26.0]: https://github.com/dirge-code/dirge/compare/v0.25.7...v0.26.0
+[0.25.7]: https://github.com/dirge-code/dirge/compare/v0.25.6...v0.25.7
 [0.25.6]: https://github.com/dirge-code/dirge/compare/v0.25.5...v0.25.6
 [0.25.5]: https://github.com/dirge-code/dirge/compare/v0.25.4...v0.25.5
 [0.25.4]: https://github.com/dirge-code/dirge/compare/v0.25.3...v0.25.4
